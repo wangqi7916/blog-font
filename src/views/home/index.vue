@@ -1,7 +1,7 @@
 <template>
   <div class="common">
     <headModule />
-    <div class="content">
+    <div class="content" v-infinite-scroll="load" infinite-scroll-distance="50">
       <div class="left-content">
         <!-- 标签 -->
         <div class="tab">
@@ -10,29 +10,67 @@
           <span>最热</span>
         </div>
         <!-- 列表 -->
-        <div class="list-content">
-          <list-item />
-        </div>
+        <Skeleton v-if="!(listData && listData.length)" />
+        <list-item :listData="listData" />
       </div>
       <div class="right-content">bbb</div>
     </div>
+    <el-backtop />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue'
 // eslint-disable-next-line import/no-unresolved
 import headModule from '@/components/head.vue'
 // eslint-disable-next-line import/no-unresolved
 import ListItem from '@/components/list-item.vue'
+// eslint-disable-next-line import/no-unresolved
+import Skeleton from '@/components/skeleton.vue'
+
+import { getList } from '@/api/index'
+import dateStr from '@/utils/common'
 
 export default defineComponent({
   components: {
     headModule,
-    ListItem
+    ListItem,
+    Skeleton
   },
   // eslint-disable-next-line no-unused-vars
-  setup(props, ctx) {}
+  setup(props, ctx) {
+    const state: any = reactive({
+      listData: null,
+      page: 1,
+      loading: true
+    })
+    const load = async () => {
+      if (state.loading) {
+        // 获取列表数据
+        const data: any = await getList({
+          page: state.page,
+          size: 10
+        })
+
+        if (data && data.length === 10) {
+          state.page += 1
+        } else {
+          state.loading = false
+        }
+        data.forEach((item: any) => {
+          // eslint-disable-next-line no-param-reassign
+          item.transTime = dateStr(item.createTime)
+        })
+
+        state.listData = state.listData !== null ? state.listData.concat(data) : data
+      }
+    }
+
+    return {
+      ...toRefs(state),
+      load
+    }
+  }
 })
 </script>
 
@@ -40,6 +78,8 @@ export default defineComponent({
 @import '@/style/common.less';
 
 .common {
+  overflow: auto;
+  height: 100%;
   .content {
     position: relative;
     margin: 68px auto 0;
@@ -47,7 +87,6 @@ export default defineComponent({
     max-width: 960px;
     .left-content {
       width: 700px;
-      height: 200px;
       background: #fff;
       margin-right: 30px;
       .tab {

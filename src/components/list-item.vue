@@ -1,6 +1,6 @@
 <template>
   <block>
-    <div class="list-item" v-for="item in listData" :key="item.id">
+    <div class="list-item" v-for="item in listData" :key="item.id" @click="jumpDetail(item.id)">
       <!-- 标签 -->
       <div class="tab">
         <span>{{ item.username }}</span>
@@ -23,7 +23,16 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  props: { listData: Array }
+  props: { listData: Array },
+  setup() {},
+  methods: {
+    jumpDetail(id: any) {
+      this.$router.push({
+        path: '/detail',
+        query: { id }
+      })
+    }
+  }
 })
 </script>
 <style lang="less" scoped>
@@ -31,6 +40,7 @@ export default defineComponent({
 
 .list-item {
   padding: 12px 20px 0;
+  cursor: pointer;
   .tab {
     display: flex;
     line-height: 1;
@@ -38,7 +48,7 @@ export default defineComponent({
       padding: 0 10px;
       font-size: 12px;
       border-right: 1px solid hsla(0, 0%, 59.2%, 0.2);
-      cursor: pointer;
+      // cursor: pointer;
       color: @color-86909c;
       &:first-child {
         padding-left: 0;
@@ -88,5 +98,12 @@ export default defineComponent({
       border: none;
     }
   }
+  &:hover {
+    background: #fafafa;
+  }
 }
 </style>
+
+function jumpDetail(id: any) { throw new Error('Function not implemented.') } function
+jumpDetail(id: any) { throw new Error('Function not implemented.') } function id(id: any) { throw
+new Error('Function not implemented.') }

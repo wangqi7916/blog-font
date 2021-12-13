@@ -10,3 +10,10 @@ export function getList(params: any) {
     params
   })
 }
+
+export function getDetail(id: any) {
+  return axios({
+    url: `/article/detail/${id}`,
+    method: 'get'
+  })
+}

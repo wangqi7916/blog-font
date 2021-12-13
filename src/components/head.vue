@@ -5,7 +5,7 @@
     </div>
     <div class="nav commonWidth">
       <ul class="navBar">
-        <router-link to="/" tag="li" class="li"> 首页 </router-link>
+        <router-link to="/home" tag="li" class="li"> 首页 </router-link>
         <router-link to="/my" tag="li" class="li"> 我的初心 </router-link>
       </ul>
     </div>

@@ -1,48 +1,51 @@
 <template>
   <div class="common">
-    <headModule />
     <div class="content" v-infinite-scroll="load" infinite-scroll-distance="50">
       <div class="left-content">
         <!-- 标签 -->
         <div class="tab">
-          <span class="active">热门</span>
+          <Tip />
+          <!-- <span class="active">热门</span>
           <span>最新</span>
-          <span>最热</span>
+          <span>最热</span> -->
         </div>
         <!-- 列表 -->
         <Skeleton v-if="!(listData && listData.length)" />
         <list-item :listData="listData" />
+        <div v-if="loading" class="loading-text">Loading...</div>
+        <div v-if="noMore" class="loading-no-more">已经到底了...</div>
       </div>
-      <div class="right-content">bbb</div>
+      <div class="right-content"><Tip /></div>
     </div>
     <el-backtop />
   </div>
 </template>
 
 <script lang="ts">
+/* eslint-disable import/no-unresolved */
 import { defineComponent, reactive, toRefs } from 'vue'
-// eslint-disable-next-line import/no-unresolved
-import headModule from '@/components/head.vue'
-// eslint-disable-next-line import/no-unresolved
 import ListItem from '@/components/list-item.vue'
-// eslint-disable-next-line import/no-unresolved
 import Skeleton from '@/components/skeleton.vue'
+import Tip from '@/components/tip.vue'
 
+// eslint-disable-next-line import/extensions
 import { getList } from '@/api/index'
+// eslint-disable-next-line import/extensions
 import dateStr from '@/utils/common'
 
 export default defineComponent({
   components: {
-    headModule,
     ListItem,
-    Skeleton
+    Skeleton,
+    Tip
   },
   // eslint-disable-next-line no-unused-vars
   setup(props, ctx) {
     const state: any = reactive({
       listData: null,
       page: 1,
-      loading: true
+      loading: true,
+      noMore: false
     })
     const load = async () => {
       if (state.loading) {
@@ -56,6 +59,7 @@ export default defineComponent({
           state.page += 1
         } else {
           state.loading = false
+          state.noMore = true
         }
         data.forEach((item: any) => {
           // eslint-disable-next-line no-param-reassign
@@ -107,6 +111,12 @@ export default defineComponent({
         span:hover {
           color: @color-1e80ff;
         }
+      }
+      .loading-text,
+      .loading-no-more {
+        width: 100%;
+        padding: 10px 0;
+        text-align: center;
       }
     }
     .right-content {

@@ -98,14 +98,29 @@ export default {
           }
         }
         .article-content {
-          ::v-deep p {
+          ::v-deep(p) {
             color: #333;
             font-size: 16px;
             line-height: 22px;
+            img {
+              width: 100%;
+              height: auto;
+            }
           }
-          ::v-deep img {
-            width: 100%;
-            height: auto;
+          ::v-deep(pre) {
+            &.language-javascript {
+              code {
+                font-size: 12px;
+                padding: 15px 12px;
+                margin: 0;
+                word-break: normal;
+                display: block;
+                overflow-x: auto;
+                color: #333;
+                background: #f8f8f8;
+                border-radius: 4px;
+              }
+            }
           }
         }
       }

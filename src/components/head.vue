@@ -29,8 +29,6 @@
     -webkit-transform: translateY(-50%);
     width: 100px;
     // height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
     img {
       width: 100%;
       height: 100%;

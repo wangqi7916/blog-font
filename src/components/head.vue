@@ -1,7 +1,7 @@
 <template>
   <div class="head">
     <div class="logo">
-      <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif" />
+      <img src="../assets/logo.png" />
     </div>
     <div class="nav commonWidth">
       <ul class="navBar">
@@ -27,8 +27,8 @@
     top: 50%;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    // height: 50px;
     border-radius: 50%;
     overflow: hidden;
     img {

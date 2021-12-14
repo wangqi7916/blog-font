@@ -10,7 +10,9 @@
           <span>最热</span> -->
         </div>
         <!-- 列表 -->
-        <Skeleton v-if="!(listData && listData.length)" />
+        <Skeleton v-if="!(listData && listData.length > 0) && loading" />
+        <!-- 空 -->
+        <el-empty description="暂无数据" v-if="!(listData && listData.length > 0)"></el-empty>
         <list-item :listData="listData" />
         <div v-if="loading" class="loading-text">Loading...</div>
         <div v-if="noMore" class="loading-no-more">已经到底了...</div>

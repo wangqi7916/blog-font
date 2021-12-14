@@ -94,12 +94,12 @@ export default defineComponent({
       background-color: #fff;
       border-radius: 2px;
     }
-    &:last-child {
-      border: none;
-    }
   }
   &:hover {
     background: #fafafa;
+  }
+  &:last-child {
+    border: none;
   }
 }
 </style>

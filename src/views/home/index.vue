@@ -17,7 +17,7 @@
         <div v-if="loading" class="loading-text">Loading...</div>
         <div v-if="noMore" class="loading-no-more">已经到底了...</div>
       </div>
-      <div class="right-content"><Tip /></div>
+      <div class="right-content"><Single /></div>
     </div>
     <el-backtop />
   </div>
@@ -28,7 +28,7 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import ListItem from '@/components/list-item.vue'
 import Skeleton from '@/components/skeleton.vue'
-import Tip from '@/components/tip.vue'
+import Single from '@/components/single.vue'
 
 // eslint-disable-next-line import/extensions
 import { getList } from '@/api/index'
@@ -39,7 +39,7 @@ export default defineComponent({
   components: {
     ListItem,
     Skeleton,
-    Tip
+    Single
   },
   // eslint-disable-next-line no-unused-vars
   setup(props, ctx) {
@@ -49,6 +49,7 @@ export default defineComponent({
       loading: true,
       noMore: false
     })
+
     const load = async () => {
       if (state.loading) {
         // 获取列表数据

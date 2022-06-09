@@ -12,7 +12,8 @@
               <div class="meta-box">{{ obj.createTime }}</div>
             </div>
           </div>
-          <div class="article-content" v-html="obj.content"></div>
+          <!-- <highlightjs autodetect :code="obj.content" v-html="obj.content"/> -->
+          <div class="article-content" v-html="obj.content" v-highlight></div>
         </article>
       </div>
       <div class="right-content"><Tip /></div>
